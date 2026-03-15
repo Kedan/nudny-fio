@@ -9,6 +9,7 @@ set(MOD_ALIAS "nudny::core::fior")
 set(TESTS_DIR "test")
 set(INC_DIR "include")
 set(SRC_DIR "src/core/fio")
+set(SUBMOD_DIR "submodule")
 
 
 project(${MOD_NAME} VERSION 0.1.0 DESCRIPTION ${MOD_DESC})
@@ -18,7 +19,7 @@ set(CMAKE_CXX_FLAGS, " -Wall -Wextra -Wpedantic")
 
 
 set(SANITIZER_FLAGS, "")
-add_custom_target(coverage
+add_custom_target(${MOD_NAME}_coverage
 	COMMAND ${CMAKE_CTEST_COMMAND} -V --preset coverage
 	COMMAND ${CMAKE_SOURCE_DIR}/scripts/gencov.sh ${CMAKE_BINARY_DIR}
 	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
@@ -31,13 +32,20 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 enable_testing()
+
+add_subdirectory(${SUBMOD_DIR}/nlohmann)
+
 add_library(${MOD_NAME}
 	${SRC_DIR}/serializable.cpp
 )
 target_include_directories(${MOD_NAME}
 	PUBLIC
-	${CMAKE_CURRENT_SOURCE_DIR}/submodule
+	${CMAKE_CURRENT_SOURCE_DIR}/${SUBMOD_DIR}/nlohmann/include
 	${CMAKE_CURRENT_SOURCE_DIR}/${INC_DIR}
+)
+target_link_libraries(${MOD_NAME}
+	PRIVATE
+	${SUBMOD_DIR}/nlohmann
 )
 option(RELEASE "Relese" OFF)
 if(RELEASE)
