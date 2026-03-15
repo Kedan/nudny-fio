@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.23)
 
-
-
 set(MOD_NAME "nudny-fio")
 set(MOD_DESC "File input/output")
 set(MOD_ALIAS "nudny::fio")
