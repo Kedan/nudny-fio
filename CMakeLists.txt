@@ -31,19 +31,21 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 enable_testing()
 
-add_subdirectory(${SUBMOD_DIR}/nlohmann)
+if(NOT TARGET nlohmann_json::nlohmann_json)
+	add_subdirectory(${SUBMOD_DIR}/nlohmann)
+endif()
 
 add_library(${MOD_NAME}
 	${SRC_DIR}/serializable.cpp
 )
 target_include_directories(${MOD_NAME}
 	PUBLIC
-	${CMAKE_CURRENT_SOURCE_DIR}/${SUBMOD_DIR}/nlohmann/include
+	${SUBMOD_DIR}/nlohmann/include
 	${CMAKE_CURRENT_SOURCE_DIR}/${INC_DIR}
 )
 target_link_libraries(${MOD_NAME}
 	PRIVATE
-	${SUBMOD_DIR}/nlohmann
+	nlohmann_json::nlohmann_json
 )
 option(RELEASE "Relese" OFF)
 if(RELEASE)
