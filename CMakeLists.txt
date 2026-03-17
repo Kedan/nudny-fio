@@ -6,7 +6,7 @@ set(MOD_ALIAS "nudny::fio")
 
 set(TESTS_DIR "test")
 set(INC_DIR "include")
-set(SRC_DIR "src/core/fio")
+set(SRC_DIR "src/core")
 set(SUBMOD_DIR "submodule")
 
 

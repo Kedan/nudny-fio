@@ -1,4 +1,4 @@
-#include <nudny/core/fio/serializable.hpp>
+#include <nudny/core/serializable.hpp>
 
 namespace nudny::core::fio {
 	nlohmann::json& Serializable::getSerialized() {
