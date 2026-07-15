@@ -1,11 +1,12 @@
 
 cc_library(
-	name = "nudny-baseline",
+	name = "nudny-fio",
 	srcs = [
-		"src/nudny/baseline/baseline.cpp",
+		"src/nudny/fio/serializable.cpp",
 	],
 	hdrs = [
-		"include/nudny/baseline/baseline.hpp",
+		"include/nudny/fio/io.hpp",
+		"include/nudny/fio/serializable.hpp",
 	],
 	includes = [
 		"include",
@@ -15,15 +16,18 @@ cc_library(
 	],
 	deps = [ 
 		"@nlohmann_json//:json",
+		"@nudny-util//:nudny-util",
 	],
 )
 
 cc_test(
-	name = "nudny-baseline-test",
+	name = "nudny-fio-test",
 	includes = ["test/include"],
 	srcs = glob([
-		"test/include/nudny/baseline/nudny_baseline_test.hpp",
-		"test/src/nudny/baseline/nudny_baseline_test.cpp"
+		"test/include/nudny/fio/nudny_io_test.hpp",
+		"test/include/nudny/fio/nudny_serializable_test.hpp",
+		"test/src/nudny/fio/nudny_io_test.cpp",
+		"test/src/nudny/fio/nudny_serializable_test.cpp"
 	]),
 	copts = [
 		"-Wall",
@@ -31,9 +35,10 @@ cc_test(
 		"-Wpedantic",
 	],
 	deps = [
-		":nudny-baseline",
+		":nudny-fio",
 		"@googletest//:gtest_main",
 		"@nlohmann_json//:json",
+		"@nudny-util//:nudny-util",
 	],
 )
 
@@ -41,7 +46,8 @@ cc_binary(
 	name = "app",
 	srcs = [ "src/main.cpp"	],
 	deps = [ 
-		":nudny-baseline",
-		"@nlohmann_json//:json"
+		":nudny-fio",
+		"@nlohmann_json//:json", 
+		"@nudny-util//:nudny-util",
 	],
 )

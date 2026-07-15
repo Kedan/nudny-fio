@@ -9,3 +9,9 @@ git_override(
 bazel_dep(name = "platforms", version = "0.0.11")
 bazel_dep(name = "rules_python", version = "2.2.0-rc0")
 bazel_dep(name = "nlohmann_json", version = "3.12.0")
+bazel_dep(name = "nudny-util")
+git_override(
+    module_name = "nudny-util",
+    remote = "https://github.com/Kedan/nudny-util.git",
+    commit = "7c9de8f80e1de440158c063617ac9f20b1ab2568",
+)

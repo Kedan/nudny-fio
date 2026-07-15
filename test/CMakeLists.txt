@@ -1,13 +1,17 @@
 cmake_minimum_required(VERSION 3.23)
 
 add_executable(${MOD_NAME}_UNIT_TESTS
-	src/${MOD_DIR}/nudny_baseline_test.cpp
+	src/${MOD_DIR}/nudny_io_test.cpp
+	src/${MOD_DIR}/nudny_serializable_test.cpp
 )
 
 target_include_directories(${MOD_NAME}_UNIT_TESTS
 	PUBLIC
 		${CMAKE_CURRENT_SOURCE_DIR}/include
-		include	
+		../include
+		../submodule/nlohmann/include
+		../submodule/nudny-util/include
+			
 )
 
 target_link_libraries(
