@@ -32,7 +32,8 @@ namespace nudny::fio {
 	template<typename T>
 	int save(T& t_obj, const std::string& t_filename) {
 		std::ofstream file(t_filename, std::ios::binary);
-		if(file.is_open() && t_obj.serialize()) {
+		if(file.is_open()) {
+		//if(file.is_open() && t_obj.serialize()) {
 			//nlohmann::json j = t_obj.getSerialized();
 			nlohmann::json j = t_obj;
 			std::vector<uint8_t> cbor = nlohmann::json::to_cbor(j);

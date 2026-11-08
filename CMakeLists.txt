@@ -59,8 +59,13 @@ target_include_directories(${APP_NAME}
 	#	submodule/nlohmann/include
 )
 
-add_subdirectory(submodule/nlohmann)
-add_subdirectory(submodule/nudny-util)
+if(NOT TARGET nlohmann_json)
+	add_subdirectory(submodule/nlohmann)
+endif()
+
+if(NOT TARGET nudny-util)
+	add_subdirectory(submodule/nudny-util)
+endif()
 
 target_link_libraries(${APP_NAME}
 	PRIVATE
