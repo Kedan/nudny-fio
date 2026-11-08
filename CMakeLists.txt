@@ -48,15 +48,30 @@ add_executable(${APP_NAME}
 target_include_directories(${MOD_NAME}
 	PUBLIC
 	include
-	submodule/nudny-util/include
-	submodule/nlohmann/include
+	#submodule/nudny-util/include
+	#	submodule/nlohmann/include
 )
 
 target_include_directories(${APP_NAME}
 	PUBLIC
 	include
-	submodule/nudny-util/include
-	submodule/nlohmann/include
+	# submodule/nudny-util/include
+	#	submodule/nlohmann/include
+)
+
+add_subdirectory(submodule/nlohmann)
+add_subdirectory(submodule/nudny-util)
+
+target_link_libraries(${APP_NAME}
+	PRIVATE
+	nlohmann_json::nlohmann_json
+	nudny::util
+)
+
+target_link_libraries(${MOD_NAME}
+	PRIVATE
+	nlohmann_json::nlohmann_json
+	nudny::util
 )
 
 if(ENABLE_CLANG_TIDY)

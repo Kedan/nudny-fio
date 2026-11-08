@@ -24,7 +24,8 @@ namespace nudny::fio {
 			return 1;
 		std::vector<uint8_t> buffer((std::istreambuf_iterator<char>(file)),std::istreambuf_iterator<char>());
 		nlohmann::json data = nlohmann::json::from_cbor(buffer);
-		t_obj.deserialize(data);
+		//t_obj.deserialize(data);
+		t_obj = data.get<T>();
 		return 0;
 	};
 
@@ -32,7 +33,8 @@ namespace nudny::fio {
 	int save(T& t_obj, const std::string& t_filename) {
 		std::ofstream file(t_filename, std::ios::binary);
 		if(file.is_open() && t_obj.serialize()) {
-			nlohmann::json j = t_obj.getSerialized();
+			//nlohmann::json j = t_obj.getSerialized();
+			nlohmann::json j = t_obj;
 			std::vector<uint8_t> cbor = nlohmann::json::to_cbor(j);
 			file.write(reinterpret_cast<const char*>(cbor.data()), cbor.size());
 			file.close();
